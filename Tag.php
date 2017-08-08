@@ -2295,6 +2295,7 @@ class Tag
 					$objattr['padding_right'] = 0;
 					$objattr['width'] = 0;
 					$objattr['height'] = 0;
+                    $objattr['border'] = ['s' => 1, 'w' => 1];
 					$objattr['border_top']['w'] = 0;
 					$objattr['border_bottom']['w'] = 0;
 					$objattr['border_left']['w'] = 0;
@@ -2367,6 +2368,9 @@ class Tag
 						$objattr['padding_right'] = $this->mpdf->ConvertSize($properties['PADDING-RIGHT'], $this->mpdf->blk[$this->mpdf->blklvl]['inner_width'], $this->mpdf->FontSize, false);
 					}
 
+                    if (isset($properties['BORDER'])) {
+                        $objattr['border'] = $this->mpdf->border_details($properties['BORDER']);
+                    }
 					if (isset($properties['BORDER-TOP'])) {
 						$objattr['border_top'] = $this->mpdf->border_details($properties['BORDER-TOP']);
 					}

@@ -663,6 +663,7 @@ class cssmgr
 				} else {
 					$v = $this->_fix_borderStr($v);
 				}
+				$newprop['BORDER'] = $v;
 				$newprop['BORDER-TOP'] = $v;
 				$newprop['BORDER-RIGHT'] = $v;
 				$newprop['BORDER-BOTTOM'] = $v;

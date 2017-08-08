@@ -7295,7 +7295,18 @@ class mPDF
 						include(_MPDF_PATH . 'qrcode/qrcode.class.php');
 					}
 					$this->qrcode = new QRcode($objattr['code'], $objattr['errorlevel']);
-					$this->qrcode->displayFPDF($this, $objattr['INNER-X'], $objattr['INNER-Y'], $objattr['bsize'] * 25, array(255, 255, 255), array(0, 0, 0));
+                    if($objattr['border']['s'] == 0) {
+                        $this->qrcode->disableBorder();
+                    }
+                    $bgColor = [255, 255, 255];
+                    if($objattr['bgcolor']) {
+                        $bgColor = array_map(function ($col) { return intval(255 * floatval($col)); }, explode(" ", $this->SetColor($objattr['bgcolor'], 'CodeOnly')));
+                    }
+                    $color = [0, 0, 0];
+                    if($objattr['color']) {
+                        $color = array_map(function ($col) { return intval(255 * floatval($col)); }, explode(" ", $this->SetColor($objattr['color'], 'CodeOnly')));
+                    }
+                    $this->qrcode->displayFPDF($this, $objattr['INNER-X'], $objattr['INNER-Y'], $objattr['bsize'] * 25, $bgColor, $color);
 				} else {
 					$this->WriteBarcode2($objattr['code'], $objattr['INNER-X'], $objattr['INNER-Y'], $objattr['bsize'], $objattr['bheight'], $bgcol, $col, $objattr['btype'], $objattr['pr_ratio'], $k);
 				}
